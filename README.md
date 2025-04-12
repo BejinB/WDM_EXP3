@@ -42,17 +42,29 @@ for each wear category.</p>
 from collections import defaultdict
 from itertools import combinations
 # Function to generate candidate k-item sequences
-def generate_candidates(dataset, k):
+def generate_candidates(prev_frequent, k):
 
-
-    /WRITE YOUR CODE HERE/
+    candidates = set()
+    items = set(item for pattern in prev_frequent for item in pattern)
+    for combo in combinations(sorted(items), k):
+        candidates.add(combo)
+    return candidates
 
 
 #Function to perform GSP algorithm
 def gsp(dataset, min_support):
 
+    frequent_patterns = {}
+    k = 1
 
-  /WRITE YOUR CODE HERE/
+    # First pass - single item sequences
+    items = set(item for sequence in dataset for item in sequence)
+    current_frequent = []
+    for item in sorted(items):
+        support = calculate_support((item,), dataset)
+        if support >= min_support:
+            frequent_patterns[(item,)] = support
+            current_frequent.append((item,))
 
 
 #Example dataset for each category
